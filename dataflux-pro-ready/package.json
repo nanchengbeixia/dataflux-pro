@@ -1,0 +1,103 @@
+{
+  "name": "dataflux-pro",
+  "version": "1.0.0",
+  "description": "智能文件表格处理系统 - Windows桌面应用",
+  "main": "dist/main/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite && electron . --dev",
+    "dev:vite": "vite",
+    "dev:electron": "electron . --dev",
+    "build": "npm run build:frontend && npm run build:backend && npm run build:electron",
+    "build:frontend": "vite build",
+    "build:backend": "tsc src/backend/**/*.ts --outDir dist/backend",
+    "build:electron": "tsc src/main/**/*.ts --outDir dist/main",
+    "package": "electron-builder",
+    "package:win": "npm run build && electron-builder --win",
+    "package:portable": "npm run build && electron-builder --win --portable",
+    "lint": "eslint src --ext .ts,.tsx,.vue",
+    "type-check": "vue-tsc --noEmit",
+    "preinstall-check": "node scripts/environment-check.js"
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.1.1",
+    "express": "^4.18.2",
+    "exceljs": "^4.3.0",
+    "xlsx": "^0.18.5",
+    "csv-parser": "^3.0.0",
+    "csv-stringify": "^6.4.6",
+    "fs-extra": "^11.2.0",
+    "glob": "^10.3.10",
+    "minimatch": "^9.0.3",
+    "recursive-copy": "^2.0.14",
+    "path-exists": "^5.0.0",
+    "ensure-dir": "^2.0.1",
+    "fuse.js": "^7.0.0",
+    "levenshtein-distance": "^1.0.1",
+    "date-fns": "^2.30.0",
+    "lodash-es": "^4.17.21",
+    "better-sqlite3": "^9.2.2",
+    "dotenv": "^16.3.1",
+    "pinia": "^2.1.7",
+    "vue": "^3.3.10"
+  },
+  "devDependencies": {
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.4",
+    "vite": "^5.0.8",
+    "@vitejs/plugin-vue": "^5.0.0",
+    "@vitejs/plugin-vue-jsx": "^5.0.0",
+    "typescript": "^5.3.3",
+    "vue-tsc": "^1.8.22",
+    "eslint": "^8.55.0",
+    "eslint-plugin-vue": "^9.19.2",
+    "sass": "^1.69.5",
+    "tailwindcss": "^3.4.1",
+    "postcss": "^8.4.32",
+    "autoprefixer": "^10.4.16",
+    "@types/node": "^20.10.6",
+    "@types/express": "^4.17.21"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "build": {
+    "appId": "com.dataflux.pro",
+    "productName": "DataFlux Pro",
+    "directories": {
+      "output": "release",
+      "buildResources": "public"
+    },
+    "files": [
+      "dist/**/*",
+      "public/**/*",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "certificateFile": null,
+      "certificatePassword": null
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "DataFlux Pro"
+    }
+  }
+}
